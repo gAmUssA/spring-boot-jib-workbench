@@ -1,5 +1,7 @@
 = Spring Boot / Kotlin / Gradle / Jib Workbench
 
+image:https://circleci.com/gh/roamingthings/spring-boot-jib-workbench.png["Build Status", link="https://circleci.com/gh/roamingthings/spring-boot-jib-workbench"]
+
 == ... what it's for
 
 Demonstrate how to use the
