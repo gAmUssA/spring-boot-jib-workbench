@@ -1,0 +1,48 @@
+= Spring Boot / Kotlin / Gradle / Jib Workbench
+
+== ... what it's for
+
+Demonstrate how to use the
+https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin[Jib Gradle Plugin]
+to create a docker container.
+
+Jib offers a new approach in generating Docker images for Java applications by by separating libraries, classes and
+resources into separate layers which speeds up deployment and reduces the size of the image layers that change often
+during application development. You can read more about Jib on the
+https://github.com/GoogleContainerTools/jib[Jib GitHub Project page].
+
+In addition the gradle script contains all necessary setup to use Kotlin and Spring Boot 2 for the implementation.
+
+NOTE: Due to a https://github.com/GoogleContainerTools/jib/issues/790[problem in Version 0.9.8] of Jib it is not
+possible to use the openjdk base image. By default Jib uses `gcr.io/distroless/java`.
+
+== ... how it's setup
+
+In order to be able to push the generated docker image to a registry you need to set the `dockerRegistryPrefix` property
+in the `gradle.properties` file. In case of the Docker Hub registry this is your username. By default the Jib plugin
+will use the authentication mechanism and credentials provided by the configuration of your docker configuration
+(for example `~/.docker/config.json`)
+
+The `deployments` folder contains a simple kubernetes deployment descriptor for this application. You have to update
+the image name in order to use your image.
+
+== ... how it's build
+
+Build and push an image by issuing `gradle jib`.
+
+To build the image and create a local Docker daemon use `gradle jibDockerBuild`.
+
+== ... how it's structured
+
+The Gradle build script is split into multiple files that can be found in the `gradle` folder:
+
+`jib.gradle`:: Configures the Jib plugin.
+`kotlin.gradle`:: Is responsible for all things related to Kotlin.
+`test.gradle`:: Sets up Gradle to use JUnit 5 to run tests.
+
+== ... what it can do
+
+Since the purpose of the project is to demonstrate the build mechanism the application itself only provides two simple
+endpoints at `/smoke` and `/burn`.
+
+In addition the Spring Actuator package is included in the application.

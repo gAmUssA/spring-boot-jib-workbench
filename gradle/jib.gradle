@@ -1,0 +1,19 @@
+jib {
+// Due to a bug in the Jib Plugin 0.9.8 referring a base image in the same registry will lead to an authentication error
+/*
+    from {
+        image = 'openjdk:8u171-alpine'
+    }
+*/
+    to {
+//        image = "${dockerRegistryPrefix}/${project.name}:${project.version}"
+        image = "${dockerRegistryPrefix}/${project.name}"
+    }
+    container {
+        jvmFlags = ['-Xms512m', '-Xmx512m', '-Xdebug']
+        ports = ['8080/tcp']
+    }
+}
+
+// Uncomment the following line to create and push an image for every build
+//tasks.build.dependsOn tasks.jib

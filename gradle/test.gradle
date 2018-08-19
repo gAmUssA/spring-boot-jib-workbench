@@ -1,0 +1,4 @@
+// Enable JUnit 5 support
+test {
+    useJUnitPlatform()
+}
