@@ -32,6 +32,9 @@ jobs:
 
     - run: ./gradlew --console=plain test
 
+    - store_test_results:
+        path: build/test-results
+
     - run: ./gradlew --console=plain -x test build
 
     - run: ./gradlew --console=plain -x test jib
